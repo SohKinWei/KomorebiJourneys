@@ -1,0 +1,6 @@
+{
+  "name": "Komorebi Journeys",
+  "description": "Curated recommendations for unusual, off-the-beaten-path local tour packages and seasonal journeys across Japan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

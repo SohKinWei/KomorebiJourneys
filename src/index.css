@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-sumi: #1c1c1e;
+    --color-kaki: #c75135;
+    --color-hinoki: #2f5d50;
+    --color-washi: #f9f9fb;
+    --color-sakura: #e28b9b;
+    --color-indigo: #3c4b64;
+  }
+
+  body {
+    background-color: #f9f9fb;
+    color: #1a1c1d;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.frosted-glass-nav {
+  background: rgba(249, 249, 251, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+.frosted-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.hairline-border {
+  border-color: rgba(0, 0, 0, 0.08);
+}
