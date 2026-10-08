@@ -441,7 +441,8 @@ export const CURATED_TOURS: TourPackage[] = [
 // Helper to safely extract any env token without ever logging it
 function getMcpToken(): string | undefined {
   const env = process.env;
-  return env.SMITHERY_API_KEY || env.SMITHERY_TOKEN || env.MCP_API_KEY || env.MCP_KEY;
+  const token = env.SMITHERY_API_KEY || env.SMITHERY_TOKEN || env.SMITHERY_KEY || env.MCP_API_KEY || env.MCP_KEY;
+  return token ? token.trim() : undefined;
 }
 
 /**
