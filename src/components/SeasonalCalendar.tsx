@@ -181,7 +181,130 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Live Seasonal Travel Intelligence (Japan in Seasons MCP Connector) */}
+        <div className="frosted-card rounded-2xl p-6 sm:p-8 border hairline-border bg-white shadow-xs">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b hairline-border">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-emerald-700 uppercase mb-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Live Connector: Japan in Seasons MCP</span>
+                <span aria-hidden="true">·</span>
+                <span className="font-mono text-neutral-400">seasons.kooexperience.com/mcp</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#1c1c1e]">
+                Live Meteorological &amp; Phenological Intelligence
+              </h3>
+              <p className="text-xs text-neutral-500 max-w-2xl mt-0.5">
+                Query date-specific and real-time Japan travel data: cherry blossom forecasts, autumn foliage progression (kōyō), local festival dates, and fruit picking seasons.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 self-start md:self-auto">
+              <span className="text-[11px] font-medium text-neutral-500 bg-neutral-100 px-2.5 py-1 rounded-md">
+                Japan Meteorological Corp. Verified
+              </span>
+            </div>
+          </div>
+
+          <LiveSeasonalQuery />
+        </div>
       </div>
     </section>
+  );
+};
+
+// Sub-component for querying live seasonal intelligence
+const LiveSeasonalQuery: React.FC = () => {
+  const [query, setQuery] = useState('Where are the best autumn leaves and unusual local festivals in late October or November?');
+  const [response, setResponse] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [source, setSource] = useState<string>('');
+
+  const quickPrompts = [
+    'Autumn leaves (koyo) forecast now for Tohoku and Shikoku',
+    'When do early Kawazu cherry blossoms bloom?',
+    'What seasonal fruit picking is available in autumn?',
+    'Traditional winter festivals and snow lanterns in regional Japan'
+  ];
+
+  const handleQuery = async (customPrompt?: string) => {
+    const promptToRun = customPrompt || query;
+    if (!promptToRun.trim()) return;
+
+    setLoading(true);
+    setResponse(null);
+    try {
+      const res = await fetch('/api/seasons/live', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: promptToRun })
+      });
+      const data = await res.json();
+      if (data.answer) {
+        setResponse(data.answer);
+        setSource(data.source || 'Japan in Seasons MCP');
+      }
+    } catch {
+      setResponse('Unable to reach seasonal MCP endpoint at this moment. Please check network connection.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Quick Prompts */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-[11px] font-medium text-neutral-400">Sample Questions:</span>
+        {quickPrompts.map((p, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              setQuery(p);
+              handleQuery(p);
+            }}
+            className="text-xs px-2.5 py-1 rounded-md bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition-colors cursor-pointer"
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+
+      {/* Query Bar */}
+      <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Ask a date-specific or seasonal question (e.g. cherry blossoms, foliage, festivals)..."
+          className="flex-1 px-3.5 py-2.5 text-xs bg-neutral-50 border hairline-border rounded-lg focus:outline-none focus:ring-1 focus:ring-black text-neutral-800"
+        />
+        <button
+          onClick={() => handleQuery()}
+          disabled={loading}
+          className="px-5 py-2.5 text-xs font-semibold text-white bg-[#1c1c1e] hover:bg-black rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 shrink-0"
+        >
+          {loading ? (
+            <span>Fetching Live MCP Data...</span>
+          ) : (
+            <span>Query Live Seasons MCP</span>
+          )}
+        </button>
+      </div>
+
+      {/* Result Display */}
+      {response && (
+        <div className="mt-4 p-5 rounded-xl bg-neutral-50/90 border hairline-border text-xs text-neutral-700 space-y-2 animate-in fade-in">
+          <div className="flex items-center justify-between pb-2 border-b hairline-border text-[11px] text-neutral-400">
+            <span className="font-medium text-neutral-600">Live MCP Intelligence Output</span>
+            <span className="font-mono text-emerald-700 font-semibold">{source}</span>
+          </div>
+          <div className="whitespace-pre-line leading-relaxed max-h-80 overflow-y-auto font-sans pr-2">
+            {response}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

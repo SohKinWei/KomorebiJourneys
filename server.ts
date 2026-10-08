@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { healthHandler } from './api/health/index.ts';
 import { toursHandler } from './api/tours/index.ts';
 import { recommendHandler } from './api/recommend/index.ts';
+import { seasonsHandler } from './api/seasons/index.ts';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ async function startServer() {
   app.get('/api/tours', toursHandler);
   app.get('/api/recommend', recommendHandler);
   app.post('/api/recommend', recommendHandler);
+  app.get('/api/seasons/live', seasonsHandler);
+  app.post('/api/seasons/live', seasonsHandler);
 
   if (!isProd) {
     // Development mode: Mount Vite middleware
