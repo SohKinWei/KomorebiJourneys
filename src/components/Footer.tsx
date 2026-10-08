@@ -56,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div>
             Data sourced via Model Context Protocol:
             <span className="text-neutral-600 ml-1">sohkinwei MCP</span> &amp;
-            <span className="text-neutral-600 ml-1">haomingkoo-japan-seasons-mcp</span>.
+            <span className="text-neutral-600 ml-1">Japan in Seasons MCP</span>.
           </div>
           <div className="flex items-center gap-4">
             <span>Server Proxy Active in <code className="font-mono text-neutral-600">api/</code></span>

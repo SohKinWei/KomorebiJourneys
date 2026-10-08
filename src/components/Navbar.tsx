@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* MCP Health Affordance */}
           <button
             onClick={onOpenHealth}
-            title="Inspect server-side MCP connection health (sohkinwei & japan-seasons-mcp)"
+            title="Inspect server-side MCP connection health (Japan in Seasons & sohkinwei)"
             className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-neutral-700 bg-neutral-100/90 hover:bg-neutral-200/90 rounded-md transition-colors cursor-pointer border hairline-border"
           >
             <span

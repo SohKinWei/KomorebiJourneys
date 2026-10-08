@@ -1,8 +1,8 @@
 /**
  * Server-side MCP Client for Komorebi Journeys
  * Communicates with:
- * 1. sohkinwei MCP (https://mcp.smithery.ai/sohkinwei)
- * 2. haomingkoo-japan-seasons-mcp (https://server.smithery.ai/haomingkoo/japan-seasons-mcp)
+ * 1. Japan in Seasons MCP (https://seasons.kooexperience.com/mcp)
+ * 2. sohkinwei MCP (https://mcp.smithery.ai/sohkinwei)
  *
  * GUARDRAILS ENFORCED:
  * - Never log or return any secret token/key.
@@ -450,7 +450,6 @@ function getMcpToken(): string | undefined {
  * Monitored endpoints:
  * 1. Japan in Seasons (Live Connector): https://seasons.kooexperience.com/mcp
  * 2. sohkinwei: https://mcp.smithery.ai/sohkinwei
- * 3. haomingkoo-japan-seasons-mcp: https://server.smithery.ai/haomingkoo/japan-seasons-mcp
  */
 export async function checkMcpHealth(): Promise<SystemHealthReport> {
   const token = getMcpToken();
@@ -466,12 +465,6 @@ export async function checkMcpHealth(): Promise<SystemHealthReport> {
       url: 'https://mcp.smithery.ai/sohkinwei',
       isSse: false,
       description: 'Curated unusual local Japan tour packages'
-    },
-    {
-      name: 'haomingkoo-japan-seasons-smithery',
-      url: 'https://server.smithery.ai/haomingkoo/japan-seasons-mcp',
-      isSse: false,
-      description: 'Detailed seasonal micro-terms and festival records'
     }
   ];
 

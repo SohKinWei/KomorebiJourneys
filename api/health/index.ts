@@ -3,8 +3,8 @@ import { checkMcpHealth } from '../mcp-client.ts';
 
 /**
  * Health check handler for MCP endpoints:
- * 1. sohkinwei (https://mcp.smithery.ai/sohkinwei)
- * 2. haomingkoo-japan-seasons-mcp (https://server.smithery.ai/haomingkoo/japan-seasons-mcp)
+ * 1. Japan in Seasons (https://seasons.kooexperience.com/mcp)
+ * 2. sohkinwei (https://mcp.smithery.ai/sohkinwei)
  *
  * Can be used by Express server or exported as Vercel serverless function.
  */
